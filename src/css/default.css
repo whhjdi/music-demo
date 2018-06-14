@@ -19,6 +19,10 @@ a {
     text-decoration: none;
 }
 
+input {
+    font: inherit;
+}
+
 body {
     font-size: 12px;
     line-height: 1.5;
@@ -37,7 +41,6 @@ body {
 
 .page>main {
     flex-grow: 1;
-    border: 1px solid blue;
 }
 
 /* aside */
@@ -56,10 +59,13 @@ aside {
     background: #d4d4d4;
 }
 
+.songList-container {
+    flex-grow: 1;
+}
+
 .songList {
     text-align: left;
     border-top: 1px solid #999;
-    flex-grow: 1;
 }
 
 .songList>li {
@@ -70,8 +76,6 @@ aside {
 .songList>li.active {
     background: #d4d4d4;
 }
-
-.upload {}
 
 .upload>.dragable {
     border: 2px dashed #ddd;
@@ -86,4 +90,54 @@ aside {
 
 .upload .clickable {
     cursor: pointer;
+}
+
+.uploadStatus {
+    text-align: center;
+}
+
+/* main */
+
+.page>main {
+    padding: 20px;
+    background: #d4d4d4;
+}
+
+.form {
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+.form>.row {
+    margin: 10px 0;
+    display: flex;
+}
+
+.form>.row>label {
+    width: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 5px;
+}
+
+.form>.row.actions {
+    margin-left: calc(4em + 5px);
+}
+
+.form input[type=text] {
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    height: 30px;
+}
+
+.form input[type=submit],
+.form input[type=button],
+.form button {
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
 }
