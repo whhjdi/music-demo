@@ -35,35 +35,18 @@
     </div>
 
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
-    <script>
-        var APP_ID = 'cSCCU6rgxDEnltUhiN4tnsw0-gzGzoHsz';
-        var APP_KEY = 'WBp7stf4OLawz6VQ2hslkkin';
-
-        AV.init({
-            appId: APP_ID,
-            appKey: APP_KEY
-        });
-        //创建数据库
-        // var TestObject = AV.Object.extend('Song');
-        // var testObject = new TestObject();
-        // testObject.save({
-        //     name: 'test',
-        //     cover: 'test',
-        //     creatorId: 'test',
-        //     description: 'test',
-        //     songs: ['1','2']
-        // }).then(function (object) {
-        //     alert('LeanCloud Rocks!');
-        // })
-    </script>
+    <script src="./js/av.js"></script>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/plupload/js/moxie.min.js"></script>
     <script src="../node_modules/plupload/js/plupload.min.js"></script>
     <script src="../node_modules/qiniu-js/dist/qiniu.min.js"></script>
+    <script src="./js/event-hub.js"></script>
+    <script src="./js/upload-song.js"></script>
     <script src="./js/song-form.js"></script>
     <script src="./js/new-song.js"></script>
     <script src="./js/song-list.js"></script>
-    <script src="./js/upload-song.js"></script>
+    
+    
 </body>
 
 </html>
