@@ -14,7 +14,7 @@
             </div>
             <div class="row">
                 <label>歌手:</label>
-                <input type="text" name="singer">
+                <input type="text" name="singer" value='__singer__'>
             </div>
             <div class="row">
                 <label>外链:</label>
@@ -51,7 +51,7 @@
             song.set('url', data.url)
             return song.save().then((newSong) => {
                 let {id,attributes} = newSong
-                Object.assign(this.data,{id,...attributes,}) 
+                Object.assign(this.data,{id, ...attributes}) 
             }, (error) => {
                 console.log(error)
             })
@@ -69,6 +69,12 @@
                 console.log(data)
                 this.view.render(data)
             })
+            window.eventHub.on('select',(data)=>{
+                this.model.data = data
+                console.log('form')
+                console.log(this.model.data)
+                this.view.render(this.model.data)
+            })
         },
         bindEvents() {
             this.view.$el.on('submit', 'form', (e) => {
@@ -81,9 +87,7 @@
                 this.model.create(data)
                     .then(() => {
                         this.view.reset()
-                        let string = JSON.stringify(this.model.data)
-                        let object = JSON.parse(string)
-                        window.eventHub.emit('create', object)
+                        window.eventHub.emit('create', JSON.parse(JSON.stringify(this.model.data)))
                     })
             })
         }
