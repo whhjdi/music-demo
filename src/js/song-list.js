@@ -1,7 +1,7 @@
 {
     let view = {
         el: '.songList-container',
-        init(){
+        init() {
             this.$el = $(this.el)
         },
         template: `
@@ -10,24 +10,44 @@
         `,
         render(data) {
             this.$el.html(this.template)
-            let {songs} = data
+            let {
+                songs
+            } = data
             console.log(songs)
-            let liList = songs.map((song)=> $('<li></li>').text(song.name))
+            let liList = songs.map((song) => $('<li></li>').text(song.name).attr('data-song-id',song.id))
+            
             this.$el.find('ul').empty()
             console.log(liList)
-            liList.map((domLi)=>{
+            liList.map((domLi) => {
                 console.log(domLi)
                 this.$el.find('ul').append(domLi)
             })
-            
+
         },
-        clearActive(){
+        activeItem(li) {
+            let $li = $(li)
+            $li.addClass('active')
+                .siblings('.active').removeClass('active')
+        },
+        clearActive() {
             this.$el.find('.active').removeClass('active')
         }
     }
     let model = {
         data: {
-            songs:[ ]
+            songs: []
+        },
+        find() {
+            var query = new AV.Query('Song')
+            return query.find().then((songs) => {
+                this.data.songs = songs.map((song) => {
+                    return {
+                        id: song.id,
+                        ...song.attributes
+                    }
+                })
+                return songs
+            })
         }
     }
     let controller = {
@@ -36,10 +56,28 @@
             this.view.init()
             this.model = model
             this.view.render(this.model.data)
-            window.eventHub.on('upload',(data)=>{
+            this.bindEvents()
+            this.bindEventHub()
+            this.getAllSongs()
+        },
+        getAllSongs() {
+            return this.model.find().then(() => {
+                this.view.render(this.model.data)
+            })
+        },
+        bindEvents() {
+            console.log(this.view.$el)
+            this.view.$el.on('click', 'li', (e) => {
+                this.view.activeItem(e.currentTarget)
+                let songId = e.currentTarget.getAttribute('data-song-id')
+                window.eventHub.emit('select', {id: songId})
+            })
+        },
+        bindEventHub() {
+            window.eventHub.on('upload', (data) => {
                 this.view.clearActive()
             })
-            window.eventHub.on('create',(songData)=>{
+            window.eventHub.on('create', (songData) => {
                 this.model.data.songs.push(songData)
                 this.view.render(this.model.data)
             })
