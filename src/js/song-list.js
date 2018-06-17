@@ -13,13 +13,10 @@
             let {
                 songs
             } = data
-            console.log(songs)
             let liList = songs.map((song) => $('<li></li>').text(song.name).attr('data-song-id',song.id))
             
             this.$el.find('ul').empty()
-            console.log(liList)
             liList.map((domLi) => {
-                console.log(domLi)
                 this.$el.find('ul').append(domLi)
             })
 
@@ -66,7 +63,6 @@
             })
         },
         bindEvents() {
-            console.log(this.view.$el)
             this.view.$el.on('click', 'li', (e) => {
                 this.view.activeItem(e.currentTarget)
                 let songId = e.currentTarget.getAttribute('data-song-id')
@@ -75,11 +71,9 @@
                 for(let i = 0; i < songs.length; i++){
                     if(songs[i].id === songId){
                         data = songs[i]
-                        console.log(data)
                         break
                     }
                 }
-                console.log(data)
                 window.eventHub.emit('select', JSON.parse(JSON.stringify(data)))
             })
         },
@@ -91,6 +85,15 @@
             })
             window.eventHub.on('new',(data) => {
                 this.view.clearActive()
+            })
+            window.eventHub.on('update',(song)=>{
+                let songs = this.model.data.songs
+                for(let i = 0; i < songs.length; i++){
+                    if(songs[i].id === song.id){
+                        Object.assign(songs[i], song)
+                    }
+                }
+                this.view.render(this.model.data)
             })
         }
     }
