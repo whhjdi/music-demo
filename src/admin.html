@@ -29,22 +29,30 @@
 
 
         </aside>
-        <main>
-           
+        <main> 
         </main>
     </div>
-
+    <style>
+        .loading{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background:#eee ;
+        }
+    </style>
+    <div class="loading"></div>
     <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
-    <script src="./js/av.js"></script>
+    <script src="./js/admin/av.js"></script>
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/plupload/js/moxie.min.js"></script>
     <script src="../node_modules/plupload/js/plupload.min.js"></script>
     <script src="../node_modules/qiniu-js/dist/qiniu.min.js"></script>
-    <script src="./js/event-hub.js"></script>
-    <script src="./js/upload-song.js"></script>
-    <script src="./js/song-form.js"></script>
-    <script src="./js/new-song.js"></script>
-    <script src="./js/song-list.js"></script>
+    <script src="./js/admin/event-hub.js"></script>
+    <script src="./js/admin/upload-song.js"></script>
+    <script src="./js/admin/song-form.js"></script>
+    <script src="./js/admin/new-song.js"></script>
+    <script src="./js/admin/song-list.js"></script>
     
     
 </body>
