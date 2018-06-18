@@ -19,12 +19,16 @@
                 <label>外链:</label>
                 <input type="text" value='__url__' name="url">
             </div>
+            <div class="row">
+                <label>封面:</label>
+                <input type="text" value='__cover__' name="cover">
+            </div>
             <div class="row actions">
                 <button type='submit'>保存</button>
             </div>
         </form>`,
         render(data = {}) {
-            let placeholders = ['name', 'url', 'singer', 'id']
+            let placeholders = ['name', 'url', 'singer', 'id','cover']
             let html = this.template
             placeholders.map((string) => {
                 html = html.replace(`__${string}__`, data[string] || '')
@@ -45,7 +49,8 @@
             name: '',
             singer: '',
             url: '',
-            id: ''
+            id: '',
+            cover:''
         },
         update(data){
              // 第一个参数是 className，第二个参数是 objectId
@@ -54,6 +59,7 @@
              song.set('name', data.name);
              song.set('singer', data.singer);
              song.set('url', data.url);
+             song.set('cover', data.cover);
              // 保存到云端
              return song.save().then((response)=>{
                  console.log(response)
@@ -67,6 +73,7 @@
             song.set('name', data.name)
             song.set('singer', data.singer)
             song.set('url', data.url)
+            song.set('cover', data.cover)
             return song.save().then((newSong) => {
                 let {
                     id,
@@ -115,7 +122,7 @@
                 })
         },
         update() {
-            let needs = 'name singer url'.split(' ')
+            let needs = 'name singer url cover'.split(' ')
             let data = {}
             needs.map((string) => {
                 data[string] = this.view.$el.find(`[name="${string}"]`).val()
