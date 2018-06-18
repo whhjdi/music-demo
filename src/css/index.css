@@ -104,8 +104,6 @@ body{
   .tabs-nav >li.active{
     color: #D43C33;
   }
-  .tabs-nav >li.active>.text{ 
-  }
   .tabs-nav >li.active>.text::after{
     content: '';
     position: absolute;
@@ -133,8 +131,6 @@ body{
     display: table;
   }
   
-  section.playlists{
-  }
   section.playlists > ol.songs{
     display: -webkit-box;
     display: -ms-flexbox;
@@ -162,7 +158,6 @@ body{
   section.playlists > ol.songs > li img{
     width: 100%;
   }
-  section.songs{}
   section.songs > .list {
     margin-top: 18px;
   }
