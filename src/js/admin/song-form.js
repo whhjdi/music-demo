@@ -23,12 +23,16 @@
                 <label>封面:</label>
                 <input type="text" value='__cover__' name="cover">
             </div>
+            <div class="row">
+                <label>歌词:</label>
+                <textarea name='lyrics' cols='20' rows='10'>__lyrics__</textarea>
+            </div>
             <div class="row actions">
                 <button type='submit'>保存</button>
             </div>
         </form>`,
         render(data = {}) {
-            let placeholders = ['name', 'url', 'singer', 'id','cover']
+            let placeholders = ['name', 'url', 'singer', 'id','cover','lyrics']
             let html = this.template
             placeholders.map((string) => {
                 html = html.replace(`__${string}__`, data[string] || '')
@@ -50,7 +54,8 @@
             singer: '',
             url: '',
             id: '',
-            cover:''
+            cover:'',
+            lyrics: ''
         },
         update(data){
              // 第一个参数是 className，第二个参数是 objectId
@@ -60,6 +65,7 @@
              song.set('singer', data.singer);
              song.set('url', data.url);
              song.set('cover', data.cover);
+             song.set('lyrics', data.lyrics);
              // 保存到云端
              return song.save().then((response)=>{
                  console.log(response)
@@ -74,6 +80,7 @@
             song.set('singer', data.singer)
             song.set('url', data.url)
             song.set('cover', data.cover)
+            song.set('lyrics', data.lyrics);
             return song.save().then((newSong) => {
                 let {
                     id,

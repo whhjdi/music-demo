@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>音乐后台管理</title>
+    <link rel="stylesheet" href="./admin.css">
+</head>
+
+<body>
+    <div class="page">
+        <!-- topbar -->
+        <nav class="clearfix">
+            <span class="logo">logo</span>
+            <ul class="navBar clearfix">
+                <li>
+                    <a href="">七牛</a>
+                </li>
+                <li>
+                    <a href="">leancloud</a>
+                </li>
+                <li>
+                    <a href="">github</a>
+                </li>
+                <li>
+                    <a href="">博客</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- 内容区 -->
+        <section class="container">
+            <!-- 歌曲列表 -->
+            <aside>
+                <div class="new-song">
+                </div>
+                <div class="song-list">
+
+                </div>
+
+
+            </aside>
+            <!-- main -->
+            <main class="content">
+                <div class="welcome-page"></div>
+                <div class="upload-page" id="uploadContainer">
+                </div>
+                <div class="edit-page">
+                </div>
+            </main>
+        </section>
+    </div>
+    <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+    <script src="./js/admin/av.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/plupload/js/moxie.min.js"></script>
+    <script src="../node_modules/plupload/js/plupload.min.js"></script>
+    <script src="../node_modules/qiniu-js/dist/qiniu.min.js"></script>
+    <script src="./js/admin/event-hub.js"></script>
+    <script src="./js/admin/main.js"></script>
+    <script src="./js/admin/new-song.js"></script>
+    <script src="./js/admin/upload.js"></script>
+    <script src="./js/admin/song-list.js"></script>
+    <script src="./js/admin/song-form.js"></script>
+</body>
+
+</html>

@@ -9,7 +9,7 @@
             this.$el.find('audio')[0].play()
         },
         pause(){
-            console.log(this.$el.find('audio')[0])
+            console.log(this.$el.find('audio'))
             this.$el.find('audio')[0].pause()
         },
         render(data){
@@ -17,15 +17,20 @@
             console.log(song)
             this.$el.css('background-image', `url(${song.cover})`)
             this.$el.find('img.cover').attr('src', song.cover)
+            this.$el.find('.song-description>h1').html(song.name)
             if(this.$el.find('audio').attr('src')!== song.url){
-                this.$el.find('audio').attr('src',song.url)
+                let audio = this.$el.find('audio').attr('src', song.url).get(0)
+                audio.onended = ()=>{ window.eventHub.emit('songEnd') }
             }
             
             if(status === 'playing'){
                 this.$el.find('.disc-container').addClass('playing')
+                this.play()
             }else{
                 this.$el.find('.disc-container').removeClass('playing')
+                this.pause()
             }
+            
         },
     }
     let model = {
@@ -35,8 +40,9 @@
                 name: '',
                 singer: '',
                 url: '',
+                cover:''
             },
-            status: 'paused'       
+            status: 'playing'       
         },
         get(id) {
             var query = new AV.Query('Song')
@@ -45,6 +51,7 @@
                     id: song.id,
                     ...song.attributes
                 })
+                console.log(song)
                 return song
 
             })
@@ -58,21 +65,25 @@
             this.model = model
             let id = this.getSongId()
             this.model.get(id).then(() => {
-                this.view.render(this.model.data.song)
+                this.view.render(this.model.data)
             })
             this.bindEvents()
+            
         },
         bindEvents(){
             this.view.$el.on('click','.icon-play',()=>{
                 this.model.data.status = 'playing'
                 this.view.render(this.model.data)
-                this.view.play()
             })
             this.view.$el.on('click','.icon-pause',()=>{
                 this.model.data.status = 'paused'
                 this.view.render(this.model.data)
-                this.view.pause()
             })
+            window.eventHub.on('songEnd', ()=>{
+                this.model.data.status = 'paused'
+                this.view.render(this.model.data)
+            })
+            
         },
         getSongId() {
             let search = window.location.search
